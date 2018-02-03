@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.9.RELEASE</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+	
+	<groupId>com.github.vindell</groupId>
+	<artifactId>spring-boot-starter-dozer</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>spring-boot-starter-dozer</name>
+	<url>https://github.com/vindell/spring-boot-starter-dozer</url>
+	<description>Starter for Ant</description>
+	
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<scm>
+		<url>https://github.com/vindell/spring-boot-starter-dozer</url>
+		<connection>scm:git:git://github.com/vindell/spring-boot-starter-dozer.git</connection>
+		<developerConnection>scm:git:git@github.com/vindell/spring-boot-starter-dozer.git</developerConnection>
+	</scm>
+	
+	<properties>
+		<!-- Dependency versions -->
+		<dozer.version>5.5.1</dozer.version>
+	</properties>
+	
+	<dependencies>
+
+		<!-- Java Servlet API -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+
+		<!-- Core starter, including auto-configuration support, logging and YAML -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- @ConfigurationProperties annotation processing (metadata for IDEs) -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- Compile dependencies -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-autoconfigure</artifactId>
+		</dependency>
+ 		
+ 		<!-- https://mvnrepository.com/artifact/net.sf.dozer/dozer -->
+		<dependency>
+		    <groupId>net.sf.dozer</groupId>
+		    <artifactId>dozer</artifactId>
+		    <version>${dozer.version}</version>
+		</dependency>
+ 		<!-- https://mvnrepository.com/artifact/net.sf.dozer/dozer-spring -->
+		<dependency>
+		    <groupId>net.sf.dozer</groupId>
+		    <artifactId>dozer-spring</artifactId>
+		    <version>${dozer.version}</version>
+		</dependency>
+
+	</dependencies>
+	
+
+</project>
