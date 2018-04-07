@@ -1,7 +1,5 @@
 package org.dozer.spring.boot.converters.resultset;
 
-import java.beans.BeanInfo;
-import java.beans.Introspector;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -14,8 +12,8 @@ import org.dozer.MappingException;
 public final class ResultSetMapConverter implements CustomConverter {
 	/**
 	 * 从ResultSet中的到查询结果的列
-	 * @param rs
-	 * @return
+	 * @param rs {@link ResultSet} 结果集
+	 * @return  列名称集合
 	 * @throws SQLException
 	 */
 	public String[] getColNames(ResultSet rs) throws SQLException {
@@ -29,11 +27,14 @@ public final class ResultSetMapConverter implements CustomConverter {
 	}
 	
 	/**
-	 * destinationFieldValue：目标字段值
-	 * sourceFieldValue：源字段值
-	 * destinationClass:目标字段类型
-	 * sourceClass：源字段类型
+	 * 转换接口实现 
+	 * @param destinationFieldValue：目标字段值
+	 * @param sourceFieldValue：源字段值
+	 * @param destinationClass:目标字段类型
+	 * @param sourceClass：源字段类型
+	 * @return 转换后的结果
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Object convert(Object destinationFieldValue, Object sourceFieldValue, Class<?> destinationClass, Class<?> sourceClass) {
 		if (sourceFieldValue == null) {
 			return null;
@@ -42,7 +43,6 @@ public final class ResultSetMapConverter implements CustomConverter {
 			if (sourceClass.equals(ResultSet.class)&& sourceFieldValue instanceof ResultSet) {
 				try {
 					// 获取类属性
-					BeanInfo beanInfo = Introspector.getBeanInfo(destinationClass);
 					Map map = ((destinationFieldValue!=null)?(Map) destinationFieldValue:new HashMap());// 创建Map对象
 					ResultSet rest = (ResultSet) sourceFieldValue;
 					String[] colNames = getColNames(rest);
@@ -58,6 +58,6 @@ public final class ResultSetMapConverter implements CustomConverter {
 				}
 			}
 		}
-		throw new MappingException("Converter DateStringConverter used incorrectly. Arguments passed in were:" + destinationFieldValue + " and " + sourceFieldValue);
+		throw new MappingException("Converter ResultSetMapConverter used incorrectly. Arguments passed in were:" + destinationFieldValue + " and " + sourceFieldValue);
 	}
 }

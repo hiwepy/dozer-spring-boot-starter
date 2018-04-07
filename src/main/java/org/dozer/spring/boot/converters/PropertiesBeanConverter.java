@@ -12,10 +12,12 @@ import org.dozer.MappingException;
 public class PropertiesBeanConverter implements CustomConverter  {
 
 	/**
-	 * destinationFieldValue：目标字段值
-	 * sourceFieldValue：源字段值
-	 * destinationClass:目标字段类型
-	 * sourceClass：源字段类型
+	 * 转换接口实现 
+	 * @param destinationFieldValue：目标字段值
+	 * @param sourceFieldValue：源字段值
+	 * @param destinationClass:目标字段类型
+	 * @param sourceClass：源字段类型
+	 * @return 转换后的结果
 	 */
 	public Object convert(Object destinationFieldValue, Object sourceFieldValue, Class<?> destinationClass, Class<?> sourceClass) {
 		if (sourceFieldValue == null) {
@@ -58,7 +60,7 @@ public class PropertiesBeanConverter implements CustomConverter  {
 				throw new MappingException(e);
 			}
 		}
-		throw new MappingException( "Converter DateStringConverter used incorrectly. Arguments passed in were:" + destinationFieldValue + " and " + sourceFieldValue);
+		throw new MappingException( "Converter PropertiesBeanConverter used incorrectly. Arguments passed in were:" + destinationFieldValue + " and " + sourceFieldValue);
 	}
 	
 }
