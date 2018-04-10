@@ -9,7 +9,8 @@ import java.sql.SQLException;
 
 import org.dozer.CustomConverter;
 import org.dozer.MappingException;
-
+import org.springframework.stereotype.Component;
+@Component
 public final class ResultSetBeanConverter implements CustomConverter {
 	
 	/**

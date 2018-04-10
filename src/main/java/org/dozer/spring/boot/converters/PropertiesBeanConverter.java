@@ -8,7 +8,8 @@ import java.util.Properties;
 
 import org.dozer.CustomConverter;
 import org.dozer.MappingException;
-
+import org.springframework.stereotype.Component;
+@Component
 public class PropertiesBeanConverter implements CustomConverter  {
 
 	/**

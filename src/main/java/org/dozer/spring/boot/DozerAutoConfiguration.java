@@ -1,9 +1,16 @@
 package org.dozer.spring.boot;
 
 import java.io.IOException;
+import java.util.List;
 
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.dozer.CustomConverter;
+import org.dozer.CustomFieldMapper;
 import org.dozer.DozerBeanMapper;
+import org.dozer.DozerEventListener;
 import org.dozer.spring.DozerBeanMapperFactoryBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -12,7 +19,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
-import org.springframework.util.StringUtils;
 
 @Configuration
 @ConditionalOnProperty(prefix = DozerProperties.PREFIX, value = "enabled", havingValue = "true")
@@ -28,18 +34,32 @@ public class DozerAutoConfiguration {
 	
 	@Bean
 	@ConditionalOnMissingBean
-	public DozerBeanMapperFactoryBean dozerBeanMapperFactoryBean(DozerProperties properties) throws IOException {
+	public DozerBeanMapperFactoryBean dozerBeanMapperFactoryBean(DozerProperties properties,
+			@Autowired(required = false) List<CustomConverter> customConverters,
+			@Autowired(required = false) CustomFieldMapper customFieldMapper,
+			@Autowired(required = false) List<DozerEventListener> eventListeners) throws IOException {
+
 		DozerBeanMapperFactoryBean factory = new DozerBeanMapperFactoryBean();
-		if(StringUtils.hasText(properties.getMappingFiles())) {
-			factory.setMappingFiles(resolver.getResources(properties.getMappingFiles()));
+
+		factory.setCustomConverters(customConverters);
+		factory.setCustomFieldMapper(customFieldMapper);
+		factory.setEventListeners(eventListeners);
+
+		if (ArrayUtils.isNotEmpty(properties.getMappingFiles())) {
+			factory.setMappingFiles(resolver.getResources(StringUtils.join(properties.getMappingFiles(), ",")));
 		}
+
 		return factory;
 	}
-	
+
 	@Bean
 	@ConditionalOnMissingBean
-	public DozerBeanMapper beanMapper(DozerProperties properties) throws Exception {
-		return (DozerBeanMapper)(dozerBeanMapperFactoryBean(properties).getObject());
+	public DozerBeanMapper beanMapper(DozerProperties properties,
+			@Autowired(required = false) List<CustomConverter> customConverters,
+			@Autowired(required = false) CustomFieldMapper customFieldMapper,
+			@Autowired(required = false) List<DozerEventListener> eventListeners) throws Exception {
+		return (DozerBeanMapper) (dozerBeanMapperFactoryBean(properties, customConverters, customFieldMapper,
+				eventListeners).getObject());
 	}
 
 }

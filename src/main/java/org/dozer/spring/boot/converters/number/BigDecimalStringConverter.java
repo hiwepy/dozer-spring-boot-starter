@@ -5,7 +5,9 @@ import java.math.BigDecimal;
 import org.apache.commons.beanutils.converters.BigDecimalConverter;
 import org.dozer.CustomConverter;
 import org.dozer.MappingException;
+import org.springframework.stereotype.Component;
 
+@Component
 public final class BigDecimalStringConverter implements CustomConverter {
 	
 	private final BigDecimalConverter converter = new BigDecimalConverter();

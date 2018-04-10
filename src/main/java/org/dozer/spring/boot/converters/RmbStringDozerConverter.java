@@ -2,7 +2,8 @@ package org.dozer.spring.boot.converters;
 
 import org.dozer.CustomConverter;
 import org.dozer.MappingException;
-
+import org.springframework.stereotype.Component;
+@Component
 public final class RmbStringDozerConverter implements CustomConverter {
 	
 	

@@ -5,7 +5,8 @@ import java.io.File;
 import org.apache.commons.beanutils.converters.FileConverter;
 import org.dozer.CustomConverter;
 import org.dozer.MappingException;
-
+import org.springframework.stereotype.Component;
+@Component
 public final class FileStringConverter implements CustomConverter {
 	
 	private FileConverter converter = new FileConverter() ;

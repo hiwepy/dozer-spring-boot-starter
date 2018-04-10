@@ -9,7 +9,8 @@ import java.util.Map;
 
 import org.dozer.CustomConverter;
 import org.dozer.MappingException;
-
+import org.springframework.stereotype.Component;
+@Component
 public class MapBeanConverter implements CustomConverter  {
 
 	/**

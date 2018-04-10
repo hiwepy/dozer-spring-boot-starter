@@ -1,0 +1,5 @@
+spring:
+  dozer:
+    enabled: true
+    mapping-files:
+    - 

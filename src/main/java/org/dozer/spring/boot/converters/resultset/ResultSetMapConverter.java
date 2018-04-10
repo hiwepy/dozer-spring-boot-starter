@@ -8,7 +8,8 @@ import java.util.Map;
 
 import org.dozer.CustomConverter;
 import org.dozer.MappingException;
-
+import org.springframework.stereotype.Component;
+@Component
 public final class ResultSetMapConverter implements CustomConverter {
 	/**
 	 * 从ResultSet中的到查询结果的列

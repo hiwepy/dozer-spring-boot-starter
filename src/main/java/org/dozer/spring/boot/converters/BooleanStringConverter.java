@@ -3,7 +3,9 @@ package org.dozer.spring.boot.converters;
 import org.apache.commons.beanutils.converters.BooleanConverter;
 import org.dozer.CustomConverter;
 import org.dozer.MappingException;
+import org.springframework.stereotype.Component;
 
+@Component
 public final class BooleanStringConverter implements CustomConverter {
 	
 	private final BooleanConverter converter = new BooleanConverter();

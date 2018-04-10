@@ -6,7 +6,9 @@ import java.util.Date;
 import org.apache.commons.beanutils.converters.DateConverter;
 import org.dozer.CustomConverter;
 import org.dozer.MappingException;
+import org.springframework.stereotype.Component;
 
+@Component
 public final class DateStringConverter implements CustomConverter {
 	
 	private SimpleDateFormat sdf = new SimpleDateFormat();

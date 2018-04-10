@@ -5,7 +5,9 @@ import java.math.BigInteger;
 import org.apache.commons.beanutils.converters.BigIntegerConverter;
 import org.dozer.CustomConverter;
 import org.dozer.MappingException;
+import org.springframework.stereotype.Component;
 
+@Component
 public final class BigIntegerStringConverter implements CustomConverter {
 	
 	private final BigIntegerConverter converter = new BigIntegerConverter();

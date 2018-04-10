@@ -18,11 +18,16 @@ package org.dozer.spring.boot;
 import org.dozer.DozerEventListener;
 import org.dozer.event.DozerEvent;
 
+import com.codahale.metrics.Meter;
+import com.codahale.metrics.MetricRegistry;
+
 public class DozerMetricEventListener implements DozerEventListener {
 
+	MetricRegistry metricRegistry;
+	Meter meter;
+	
 	@Override
 	public void mappingStarted(DozerEvent event) {
-		
 	}
 
 	@Override
