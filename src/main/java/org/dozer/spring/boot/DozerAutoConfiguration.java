@@ -23,6 +23,7 @@ import org.springframework.core.io.support.ResourcePatternResolver;
 @Configuration
 @ComponentScan
 @ConditionalOnClass({ DozerBeanMapper.class, DozerBeanMapperFactoryBean.class })
+@ComponentScan("org.dozer.spring.boot.converters")
 @EnableConfigurationProperties({ DozerProperties.class })
 public class DozerAutoConfiguration {
 
