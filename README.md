@@ -1,5 +1,5 @@
-# spring-boot-starter-dozer
-dozer starter for spring boot
+# dozer-spring-boot-starter
+Spring Boot Starter For Dozer 5.x
 
 ### 说明
 
@@ -13,7 +13,7 @@ dozer starter for spring boot
 ``` xml
 <dependency>
 	<groupId>${project.groupId}</groupId>
-	<artifactId>spring-boot-starter-dozer</artifactId>
+	<artifactId>dozer-spring-boot-starter</artifactId>
 	<version>${project.version}</version>
 </dependency>
 ```
