@@ -15,10 +15,12 @@
  */
 package org.dozer.spring.boot.converters;
 
+import org.dozer.MappingException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * Unit tests for {{ @link BooleanStringConverter }}.
@@ -29,10 +31,48 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayName("BooleanStringConverter Tests")
 class BooleanStringConverterTest {
 
+    private final BooleanStringConverter converter = new BooleanStringConverter();
+
     @Test
     @DisplayName("Instance can be created via constructor")
-    void testInstantiation() {
-        BooleanStringConverter instance = new BooleanStringConverter();
-        assertThat(instance).isNotNull();
+    void instance() {
+        assertThat(new BooleanStringConverter()).isNotNull();
     }
+
+    @Test
+    @DisplayName("convert should return null when source value is null")
+    void convertNullSource() {
+        Object result = converter.convert(null, null, String.class, String.class);
+        assertThat(result).isNull();
+    }
+
+    @Test
+    @DisplayName("convert should parse 'true' string source via the underlying BooleanConverter")
+    void convertTrueString() {
+        Object result = converter.convert(null, "true", String.class, String.class);
+        assertThat(result).isEqualTo("true");
+    }
+
+    @Test
+    @DisplayName("convert should parse 'false' string source via the underlying BooleanConverter")
+    void convertFalseString() {
+        Object result = converter.convert(null, "false", String.class, String.class);
+        assertThat(result).isEqualTo("false");
+    }
+
+    @Test
+    @DisplayName("convert should return a String form for a non-boolean string source")
+    void convertNonBooleanString() {
+        // The underlying BooleanConverter cannot parse 'yes' so it returns the default String form.
+        Object result = converter.convert(null, "yes", String.class, String.class);
+        assertThat(result).isEqualTo("yes");
+    }
+
+    @Test
+    @DisplayName("convert should throw MappingException for unsupported types")
+    void convertUnsupportedType() {
+        assertThatThrownBy(() -> converter.convert(null, Integer.valueOf(1), Integer.class, Integer.class))
+            .isInstanceOf(MappingException.class);
+    }
+
 }

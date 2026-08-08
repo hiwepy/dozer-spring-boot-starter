@@ -15,10 +15,14 @@
  */
 package org.dozer.spring.boot;
 
+import org.dozer.event.DozerEvent;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import com.codahale.metrics.MetricRegistry;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 
 /**
  * Unit tests for {{ @link DozerMetricEventListener }}.
@@ -30,9 +34,49 @@ import static org.assertj.core.api.Assertions.assertThat;
 class DozerMetricEventListenerTest {
 
     @Test
-    @DisplayName("Instance can be created via constructor")
-    void testInstantiation() {
-        DozerMetricEventListener instance = new DozerMetricEventListener();
-        assertThat(instance).isNotNull();
+    @DisplayName("Instance can be created via default constructor")
+    void instance() {
+        DozerMetricEventListener listener = new DozerMetricEventListener();
+        assertThat(listener).isNotNull();
     }
+
+    @Test
+    @DisplayName("metricRegistry and meter fields should be mutable")
+    void fieldsAreMutable() throws Exception {
+        DozerMetricEventListener listener = new DozerMetricEventListener();
+        MetricRegistry registry = new MetricRegistry();
+
+        java.lang.reflect.Field regField = DozerMetricEventListener.class.getDeclaredField("metricRegistry");
+        regField.setAccessible(true);
+        regField.set(listener, registry);
+        assertThat(regField.get(listener)).isSameAs(registry);
+
+        java.lang.reflect.Field meterField = DozerMetricEventListener.class.getDeclaredField("meter");
+        meterField.setAccessible(true);
+        meterField.set(listener, registry.meter("dozer"));
+        assertThat(meterField.get(listener)).isNotNull();
+    }
+
+    @Test
+    @DisplayName("All four lifecycle callbacks should accept a DozerEvent without throwing")
+    void lifecycleCallbacksShouldAcceptEvent() {
+        DozerMetricEventListener listener = new DozerMetricEventListener();
+        DozerEvent event = mock(DozerEvent.class);
+
+        listener.mappingStarted(event);
+        listener.preWritingDestinationValue(event);
+        listener.postWritingDestinationValue(event);
+        listener.mappingFinished(event);
+    }
+
+    @Test
+    @DisplayName("Lifecycle callbacks should tolerate null events")
+    void lifecycleCallbacksShouldTolerateNull() {
+        DozerMetricEventListener listener = new DozerMetricEventListener();
+        listener.mappingStarted(null);
+        listener.preWritingDestinationValue(null);
+        listener.postWritingDestinationValue(null);
+        listener.mappingFinished(null);
+    }
+
 }

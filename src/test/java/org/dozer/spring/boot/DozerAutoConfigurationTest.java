@@ -15,6 +15,8 @@
  */
 package org.dozer.spring.boot;
 
+import org.dozer.DozerBeanMapper;
+import org.dozer.spring.DozerBeanMapperFactoryBean;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
@@ -24,8 +26,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Unit tests for {{ @link DozerAutoConfiguration }}.
  *
- * <p>Verifies the auto-configuration activates under the expected conditions
- * and exposes its declared beans.</p>
+ * <p>Verifies the auto-configuration registers its declared mapper beans in the
+ * application context.</p>
  *
  * @author [@Loong Wan](https://github.com/loong10k)
  * @since 1.0.0
@@ -43,17 +45,39 @@ class DozerAutoConfigurationTest {
     }
 
     @Test
-    @DisplayName("Auto-configuration loads when 'spring.boot.enabled=true'")
-    void testLoadsWhenEnabledPropertySet() {
+    @DisplayName("Auto-configuration should register a DozerBeanMapperFactoryBean")
+    void shouldRegisterFactoryBean() {
         runner.withUserConfiguration(DozerAutoConfiguration.class)
-                .withPropertyValues("spring.boot.enabled=true")
-                .run(context -> assertThat(context).hasSingleBean(DozerAutoConfiguration.class));
+                .run(context -> assertThat(context).hasSingleBean(DozerBeanMapperFactoryBean.class));
     }
 
     @Test
-    @DisplayName("Auto-configuration is absent when property is not set")
-    void testNotLoadedWhenPropertyAbsent() {
+    @DisplayName("Auto-configuration should register a DozerBeanMapper bean")
+    void shouldRegisterBeanMapper() {
         runner.withUserConfiguration(DozerAutoConfiguration.class)
-                .run(context -> assertThat(context).doesNotHaveBean(DozerAutoConfiguration.class));
+                .run(context -> assertThat(context).hasSingleBean(DozerBeanMapper.class));
     }
+
+    @Test
+    @DisplayName("Auto-configuration should register DozerProperties")
+    void shouldRegisterProperties() {
+        runner.withUserConfiguration(DozerAutoConfiguration.class)
+                .run(context -> assertThat(context).hasSingleBean(DozerProperties.class));
+    }
+
+    @Test
+    @DisplayName("Factory bean should be created with empty mapping files")
+    void factoryBeanWithEmptyMappingFiles() {
+        runner.withUserConfiguration(DozerAutoConfiguration.class)
+                .run(context -> assertThat(context.getBean(DozerBeanMapperFactoryBean.class)).isNotNull());
+    }
+
+    @Test
+    @DisplayName("Factory bean should resolve configured mapping files resources")
+    void factoryBeanWithMappingFiles() {
+        runner.withUserConfiguration(DozerAutoConfiguration.class)
+                .withPropertyValues("spring.dozer.mapping-files=classpath*:/dozer-*.xml")
+                .run(context -> assertThat(context).hasSingleBean(DozerBeanMapperFactoryBean.class));
+    }
+
 }

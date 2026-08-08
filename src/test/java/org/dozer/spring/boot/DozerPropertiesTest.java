@@ -23,39 +23,41 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Unit tests for {{ @link DozerProperties }}.
  *
- * <p>Verifies default values, getters/setters and POJO contract.</p>
- *
  * @author [@Loong Wan](https://github.com/loong10k)
  * @since 1.0.0
  */
 @DisplayName("DozerProperties Tests")
 class DozerPropertiesTest {
-    @Test
-    @DisplayName("Default constructor creates non-null instance")
-    void testDefaultInstance() {
-        DozerProperties props = new DozerProperties();
-        assertThat(props).isNotNull();
-    }
 
     @Test
-    @DisplayName("Field 'mappingFiles' can be set and read")
-    void testMappingFilesField() {
-        DozerProperties props = new DozerProperties();
-        // Use reflection to set private field (covers all fields including those without setters)
-        try {
-            java.lang.reflect.Field f = DozerProperties.class.getDeclaredField("mappingFiles");
-            f.setAccessible(true);
-            f.set(props, null);
-            Object value = f.get(props);
-            assertThat(value).isNotNull();
-        } catch (Exception e) {
-            // Field may have a more complex type; skip silently
-        }
-    }
-
-    @Test
-    @DisplayName("Public constant 'PREFIX' has expected value")
-    void testPREFIXConstant() {
+    @DisplayName("PREFIX constant should be 'spring.dozer'")
+    void prefixConstant() {
         assertThat(DozerProperties.PREFIX).isEqualTo("spring.dozer");
     }
+
+    @Test
+    @DisplayName("Default mappingFiles should be null")
+    void defaultMappingFilesShouldBeNull() {
+        DozerProperties props = new DozerProperties();
+        assertThat(props.getMappingFiles()).isNull();
+    }
+
+    @Test
+    @DisplayName("Getters and setters should round-trip mappingFiles")
+    void mappingFilesRoundTrip() {
+        DozerProperties props = new DozerProperties();
+        String[] files = { "classpath*:/*.dozer.xml", "classpath*:/custom.xml" };
+        props.setMappingFiles(files);
+        assertThat(props.getMappingFiles()).containsExactly(files);
+    }
+
+    @Test
+    @DisplayName("setMappingFiles(null) should clear the field")
+    void setMappingFilesNull() {
+        DozerProperties props = new DozerProperties();
+        props.setMappingFiles(new String[] { "a.xml" });
+        props.setMappingFiles(null);
+        assertThat(props.getMappingFiles()).isNull();
+    }
+
 }

@@ -15,10 +15,14 @@
  */
 package org.dozer.spring.boot.converters.number;
 
+import java.math.BigDecimal;
+
+import org.dozer.MappingException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * Unit tests for {{ @link BigDecimalStringConverter }}.
@@ -29,10 +33,47 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayName("BigDecimalStringConverter Tests")
 class BigDecimalStringConverterTest {
 
+    private final BigDecimalStringConverter converter = new BigDecimalStringConverter();
+
     @Test
     @DisplayName("Instance can be created via constructor")
-    void testInstantiation() {
-        BigDecimalStringConverter instance = new BigDecimalStringConverter();
-        assertThat(instance).isNotNull();
+    void instance() {
+        assertThat(new BigDecimalStringConverter()).isNotNull();
     }
+
+    @Test
+    @DisplayName("convert should return null when source value is null")
+    void convertNullSource() {
+        Object result = converter.convert(null, null, String.class, String.class);
+        assertThat(result).isNull();
+    }
+
+    @Test
+    @DisplayName("convert should parse a numeric string via the underlying BigDecimalConverter")
+    void convertNumericString() {
+        Object result = converter.convert(null, "123.456", String.class, String.class);
+        assertThat(result).isEqualTo("123.456");
+    }
+
+    @Test
+    @DisplayName("convert should convert a BigDecimal source to its plain string form")
+    void convertBigDecimalSource() {
+        Object result = converter.convert(null, new BigDecimal("999.0001"), BigDecimal.class, BigDecimal.class);
+        assertThat(result).isEqualTo("999.0001");
+    }
+
+    @Test
+    @DisplayName("convert should convert a BigDecimal with trailing zeros using toPlainString")
+    void convertBigDecimalWithTrailingZeros() {
+        Object result = converter.convert(null, new BigDecimal("1.2300"), BigDecimal.class, BigDecimal.class);
+        assertThat(result).isEqualTo("1.2300");
+    }
+
+    @Test
+    @DisplayName("convert should throw MappingException for unsupported types")
+    void convertUnsupportedType() {
+        assertThatThrownBy(() -> converter.convert(null, "x", Integer.class, Integer.class))
+            .isInstanceOf(MappingException.class);
+    }
+
 }
