@@ -13,26 +13,26 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.dozer.spring.boot;
+package org.dozer.spring.boot.converters.number;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Inherited;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
-import org.springframework.context.annotation.Import;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * TODO
+ * Unit tests for {{ @link BigDecimalStringConverter }}.
+ *
  * @author [@Loong Wan](https://github.com/loong10k)
+ * @since 1.0.0
  */
-@Target({ ElementType.TYPE })
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-@Inherited
-@Import({ DozerAutoConfiguration.class })
-public @interface EnableDozerMapper {
+@DisplayName("BigDecimalStringConverter Tests")
+class BigDecimalStringConverterTest {
 
+    @Test
+    @DisplayName("Instance can be created via constructor")
+    void testInstantiation() {
+        BigDecimalStringConverter instance = new BigDecimalStringConverter();
+        assertThat(instance).isNotNull();
+    }
 }
