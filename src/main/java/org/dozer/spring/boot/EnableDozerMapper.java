@@ -25,8 +25,11 @@ import java.lang.annotation.Target;
 import org.springframework.context.annotation.Import;
 
 /**
- * TODO
+ * Enables Dozer bean-mapper auto-configuration by importing
+ * {@link DozerAutoConfiguration}.
+ *
  * @author [@Loong Wan](https://github.com/loong10k)
+ * @since 1.0.0
  */
 @Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)

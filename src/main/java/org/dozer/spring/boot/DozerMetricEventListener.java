@@ -21,28 +21,51 @@ import org.dozer.event.DozerEvent;
 import com.codahale.metrics.Meter;
 import com.codahale.metrics.MetricRegistry;
 
+/**
+ * {@link DozerEventListener} that integrates Dozer mapping events with Dropwizard
+ * Metrics, exposing mapping activity through a {@link MetricRegistry}.
+ *
+ * @author [@Loong Wan](https://github.com/loong10k)
+ * @since 1.0.0
+ */
 public class DozerMetricEventListener implements DozerEventListener {
 
 	MetricRegistry metricRegistry;
 	Meter meter;
-	
+
+	/**
+	 * Called when a Dozer mapping operation starts.
+	 * @param event the Dozer event describing the mapping
+	 */
 	@Override
 	public void mappingStarted(DozerEvent event) {
 	}
 
+	/**
+	 * Called before a destination value is written during a Dozer mapping.
+	 * @param event the Dozer event describing the mapping
+	 */
 	@Override
 	public void preWritingDestinationValue(DozerEvent event) {
-		
+
 	}
 
+	/**
+	 * Called after a destination value is written during a Dozer mapping.
+	 * @param event the Dozer event describing the mapping
+	 */
 	@Override
 	public void postWritingDestinationValue(DozerEvent event) {
-		
+
 	}
 
+	/**
+	 * Called when a Dozer mapping operation finishes.
+	 * @param event the Dozer event describing the mapping
+	 */
 	@Override
 	public void mappingFinished(DozerEvent event) {
-		
+
 	}
 
 }

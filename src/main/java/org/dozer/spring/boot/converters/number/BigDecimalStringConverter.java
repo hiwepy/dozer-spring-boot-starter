@@ -7,18 +7,25 @@ import org.dozer.CustomConverter;
 import org.dozer.MappingException;
 import org.springframework.stereotype.Component;
 
+/**
+ * Dozer {@link CustomConverter} that converts between {@link String} and
+ * {@link BigDecimal} values.
+ *
+ * @author [@Loong Wan](https://github.com/loong10k)
+ * @since 1.0.0
+ */
 @Component
 public final class BigDecimalStringConverter implements CustomConverter {
-	
+
 	private final BigDecimalConverter converter = new BigDecimalConverter();
-	
+
 	/**
-	 * 转换接口实现 
-	 * @param destinationFieldValue：目标字段值
-	 * @param sourceFieldValue：源字段值
-	 * @param destinationClass:目标字段类型
-	 * @param sourceClass：源字段类型
-	 * @return 转换后的结果
+	 * Converts the source value between {@link String} and {@link BigDecimal}.
+	 * @param destinationFieldValue the current destination field value
+	 * @param sourceFieldValue the source field value to convert
+	 * @param destinationClass the target field type
+	 * @param sourceClass the source field type
+	 * @return the converted result, or {@code null} if the source value is {@code null}
 	 */
 	public Object convert(Object destinationFieldValue, Object sourceFieldValue, Class<?> destinationClass, Class<?> sourceClass) {
 		if (sourceFieldValue == null) {
