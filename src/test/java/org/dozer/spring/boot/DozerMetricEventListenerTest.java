@@ -15,24 +15,24 @@
  */
 package org.dozer.spring.boot;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Inherited;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
-import org.springframework.context.annotation.Import;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * TODO
+ * Unit tests for {{ @link DozerMetricEventListener }}.
+ *
  * @author [@Loong Wan](https://github.com/loong10k)
+ * @since 1.0.0
  */
-@Target({ ElementType.TYPE })
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-@Inherited
-@Import({ DozerAutoConfiguration.class })
-public @interface EnableDozerMapper {
+@DisplayName("DozerMetricEventListener Tests")
+class DozerMetricEventListenerTest {
 
+    @Test
+    @DisplayName("Instance can be created via constructor")
+    void testInstantiation() {
+        DozerMetricEventListener instance = new DozerMetricEventListener();
+        assertThat(instance).isNotNull();
+    }
 }
