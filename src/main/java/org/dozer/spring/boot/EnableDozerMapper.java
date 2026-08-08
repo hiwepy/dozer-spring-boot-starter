@@ -26,7 +26,7 @@ import org.springframework.context.annotation.Import;
 
 /**
  * TODO
- * @author ： <a href="https://github.com/hiwepy">hiwepy</a>
+ * @author [@Loong Wan](https://github.com/loong10k)
  */
 @Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
