@@ -34,7 +34,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * <p>EnableDozerMapper is an annotation meta-annotated with {@code @Import(DozerAutoConfiguration.class)};
  * these tests verify the annotation contract rather than instantiating it.</p>
  *
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  * @since 1.0.0
  */
 @DisplayName("EnableDozerMapper Tests")

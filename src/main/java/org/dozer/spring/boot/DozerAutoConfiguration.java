@@ -28,7 +28,7 @@ import org.springframework.core.io.support.ResourcePatternResolver;
  * declared via {@link DozerProperties}. Component scanning covers the bundled custom
  * converters package.</p>
  *
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  * @since 1.0.0
  */
 @Configuration

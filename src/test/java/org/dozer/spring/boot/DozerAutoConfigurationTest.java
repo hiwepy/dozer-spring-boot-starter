@@ -29,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * <p>Verifies the auto-configuration registers its declared mapper beans in the
  * application context.</p>
  *
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  * @since 1.0.0
  */
 @DisplayName("DozerAutoConfiguration Tests")

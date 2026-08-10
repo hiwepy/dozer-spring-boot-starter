@@ -25,7 +25,7 @@ import com.codahale.metrics.MetricRegistry;
  * {@link DozerEventListener} that integrates Dozer mapping events with Dropwizard
  * Metrics, exposing mapping activity through a {@link MetricRegistry}.
  *
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  * @since 1.0.0
  */
 public class DozerMetricEventListener implements DozerEventListener {
