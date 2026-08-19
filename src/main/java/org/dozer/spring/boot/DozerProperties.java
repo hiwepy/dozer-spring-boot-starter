@@ -10,6 +10,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 1.0.0
  */
 @ConfigurationProperties(DozerProperties.PREFIX)
+/**
+ * <p>Auto-configuration for DozerProperties.</p>
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
+ * @since 1.0.0
+ */
 public class DozerProperties {
 
 	public static final String PREFIX = "spring.dozer";

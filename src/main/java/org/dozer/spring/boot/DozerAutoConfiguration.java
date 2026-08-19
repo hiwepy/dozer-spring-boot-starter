@@ -36,6 +36,11 @@ import org.springframework.core.io.support.ResourcePatternResolver;
 @ConditionalOnClass({ DozerBeanMapper.class, DozerBeanMapperFactoryBean.class })
 @ComponentScan("org.dozer.spring.boot.converters")
 @EnableConfigurationProperties({ DozerProperties.class })
+/**
+ * <p>Auto-configuration for DozerAutoConfiguration.</p>
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
+ * @since 1.0.0
+ */
 public class DozerAutoConfiguration {
 
 	//spring 资源路径匹配解析器

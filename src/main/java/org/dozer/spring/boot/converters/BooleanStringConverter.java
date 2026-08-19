@@ -13,6 +13,11 @@ import org.springframework.stereotype.Component;
  * @since 1.0.0
  */
 @Component
+/**
+ * <p>Auto-configuration for BooleanStringConverter.</p>
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
+ * @since 1.0.0
+ */
 public final class BooleanStringConverter implements CustomConverter {
 
 	private final BooleanConverter converter = new BooleanConverter();

@@ -15,6 +15,11 @@ import org.springframework.stereotype.Component;
  * @since 1.0.0
  */
 @Component
+/**
+ * <p>Auto-configuration for BigIntegerStringConverter.</p>
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
+ * @since 1.0.0
+ */
 public final class BigIntegerStringConverter implements CustomConverter {
 
 	private final BigIntegerConverter converter = new BigIntegerConverter();

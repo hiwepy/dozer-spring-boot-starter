@@ -36,6 +36,11 @@ import org.springframework.context.annotation.Import;
 @Documented
 @Inherited
 @Import({ DozerAutoConfiguration.class })
+/**
+ * <p>Auto-configuration for EnableDozerMapper.</p>
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
+ * @since 1.0.0
+ */
 public @interface EnableDozerMapper {
 
 }
